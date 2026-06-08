@@ -1,4 +1,4 @@
-# 🎟️ Smart Lottery (Blockchain Raffle DApp)
+# 🎟️ Aether Draw (Blockchain Raffle DApp)
 
 A full-stack, decentralized, and transparent Smart Lottery application. This project combines a secure Solidity smart contract backend with a modern, high-fidelity Web3 frontend architecture. Users can enter open raffle pools with verifiably fair mechanics, ensuring absolute trust and automation without centralized intermediaries.
 

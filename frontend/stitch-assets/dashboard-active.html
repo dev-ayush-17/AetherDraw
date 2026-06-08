@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Lottery | Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(29, 32, 35, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glowing-primary {
+            box-shadow: 0 0 20px rgba(77, 142, 255, 0.3);
+        }
+        .glowing-primary:hover {
+            box-shadow: 0 0 30px rgba(77, 142, 255, 0.5);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #adc6ff, #4edea3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#37393d",
+                      "on-primary-container": "#00285d",
+                      "on-background": "#e1e2e7",
+                      "primary": "#adc6ff",
+                      "on-tertiary": "#003824",
+                      "on-secondary-container": "#c4abff",
+                      "surface-dim": "#111417",
+                      "on-secondary": "#3c0091",
+                      "surface-container-lowest": "#0b0e11",
+                      "outline-variant": "#424754",
+                      "tertiary-fixed": "#6ffbbe",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#2e3134",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-tint": "#adc6ff",
+                      "on-primary-fixed-variant": "#004395",
+                      "surface-container-low": "#191c1f",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "outline": "#8c909f",
+                      "on-primary-fixed": "#001a42",
+                      "on-error-container": "#ffdad6",
+                      "error-container": "#93000a",
+                      "on-primary": "#002e6a",
+                      "on-error": "#690005",
+                      "surface-container-highest": "#323538",
+                      "surface": "#111417",
+                      "secondary-fixed": "#e9ddff",
+                      "on-tertiary-fixed": "#002113",
+                      "on-surface": "#e1e2e7",
+                      "secondary-container": "#571bc1",
+                      "secondary": "#d0bcff",
+                      "surface-container-high": "#272a2e",
+                      "primary-container": "#4d8eff",
+                      "tertiary": "#4edea3",
+                      "background": "#111417",
+                      "on-tertiary-container": "#00311f",
+                      "primary-fixed-dim": "#adc6ff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "surface-container": "#1d2023",
+                      "on-surface-variant": "#c2c6d6",
+                      "primary-fixed": "#d8e2ff",
+                      "surface-variant": "#323538",
+                      "inverse-primary": "#005ac2",
+                      "tertiary-container": "#00a572",
+                      "on-secondary-fixed": "#23005c",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "inverse-surface": "#e1e2e7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "gutter": "24px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "xl": "32px",
+                      "margin-desktop": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-mono": ["JetBrains Mono"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-20 bg-background/80 backdrop-blur-2xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+<div class="flex items-center gap-xl">
+<span class="text-headline-md font-headline-md font-black text-primary tracking-tighter">Smart Lottery</span>
+<div class="hidden md:flex gap-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Raffles</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">Staking</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">Stats</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">FAQ</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex flex-col items-end px-md py-xs glass-card rounded-lg border-primary/20">
+<span class="text-label-sm font-label-sm text-tertiary">Sepolia</span>
+<span class="text-label-mono font-label-mono text-on-surface">0x12...3456</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
+<button class="bg-primary/10 text-primary border border-primary/30 px-lg py-sm rounded-full font-label-sm text-label-sm hover:bg-primary/20 transition-all active:scale-95">Disconnect</button>
+</div>
+</nav>
+<main class="flex-grow w-full max-w-max-width mx-auto px-margin-desktop py-xl">
+<!-- Hero Section / Main Raffle -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<div class="glass-card rounded-xl p-xl relative overflow-hidden group">
+<!-- Background Glow Decor -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+<div class="absolute -bottom-20 -left-20 w-64 h-64 bg-tertiary/10 rounded-full blur-[80px]"></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md mb-xl relative z-10">
+<div>
+<h2 class="text-display-lg font-display-lg text-gradient">Current Mega Raffle</h2>
+<div class="flex items-center gap-sm mt-xs">
+<span class="px-md py-xs bg-tertiary/20 text-tertiary text-label-sm font-label-sm rounded-full border border-tertiary/30">State: Open</span>
+<span class="text-on-surface-variant text-body-md font-body-md">• Ends in 14h 22m</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-on-surface-variant text-label-sm font-label-sm mb-xs">Contract Address</span>
+<div class="flex items-center gap-sm glass-card px-md py-sm rounded-lg border-white/5">
+<code class="text-label-mono font-label-mono text-primary">0xABC...123</code>
+<button class="material-symbols-outlined text-on-surface-variant text-sm hover:text-primary transition-colors cursor-pointer" title="Copy Address">content_copy</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl relative z-10">
+<div class="flex flex-col gap-xs p-lg glass-card rounded-lg border-white/5">
+<span class="text-on-surface-variant text-label-sm font-label-sm">Entrance Fee</span>
+<span class="text-headline-md font-headline-md text-on-surface">0.05 ETH</span>
+</div>
+<div class="flex flex-col gap-xs p-lg glass-card rounded-lg border-white/5">
+<span class="text-on-surface-variant text-label-sm font-label-sm">Total Players</span>
+<span class="text-headline-md font-headline-md text-on-surface">42</span>
+</div>
+<div class="flex flex-col gap-xs p-lg glass-card rounded-lg border-white/5">
+<span class="text-on-surface-variant text-label-sm font-label-sm">Pool Amount</span>
+<span class="text-headline-md font-headline-md text-tertiary">2.10 ETH</span>
+</div>
+</div>
+<div class="relative z-10">
+<button class="w-full bg-primary text-on-primary-container text-headline-md font-headline-md py-xl rounded-xl glowing-primary transition-all active:scale-[0.98] flex items-center justify-center gap-md">
+<span class="material-symbols-outlined" data-weight="fill">confirmation_number</span>
+                            Enter Raffle
+                        </button>
+</div>
+</div>
+<!-- Previous Winner Section -->
+<div class="glass-card rounded-xl p-lg border-white/5">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="text-headline-md font-headline-md text-on-surface">Previous Winner</h3>
+<span class="material-symbols-outlined text-primary">stars</span>
+</div>
+<div class="flex items-center gap-md p-lg bg-surface-container rounded-lg border border-white/5 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-tertiary">person</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-mono font-label-mono text-on-surface text-lg">0x7d...f9a2</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Prize Won: 1.85 ETH</span>
+</div>
+<div class="ml-auto">
+<span class="text-tertiary text-label-sm font-label-sm px-md py-xs glass-card border-tertiary/20 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.2)]">Transaction Verified</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Players List -->
+<div class="lg:col-span-4 h-full">
+<div class="glass-card rounded-xl p-lg flex flex-col h-[600px] border-white/5">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="text-headline-md font-headline-md text-on-surface">Recent Players</h3>
+<span class="text-label-sm font-label-sm text-primary bg-primary/10 px-md py-xs rounded-full">LIVE</span>
+</div>
+<div class="flex-grow overflow-y-auto space-y-sm pr-sm">
+<!-- Player Row 1 -->
+<div class="flex items-center justify-between p-md glass-card rounded-lg border-white/5 hover:border-primary/20 transition-all cursor-default">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-xs text-on-surface font-bold">1</div>
+<span class="text-label-mono font-label-mono text-on-surface">0x71...f2e</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">2m ago</span>
+</div>
+<!-- Player Row 2 -->
+<div class="flex items-center justify-between p-md glass-card rounded-lg border-white/5 hover:border-primary/20 transition-all cursor-default">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-xs text-on-surface font-bold">2</div>
+<span class="text-label-mono font-label-mono text-on-surface">0x3a...9d1</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">5m ago</span>
+</div>
+<!-- Player Row 3 -->
+<div class="flex items-center justify-between p-md glass-card rounded-lg border-white/5 hover:border-primary/20 transition-all cursor-default">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-xs text-on-surface font-bold">3</div>
+<span class="text-label-mono font-label-mono text-on-surface">0xde...c0b</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">12m ago</span>
+</div>
+<!-- Player Row 4 -->
+<div class="flex items-center justify-between p-md glass-card rounded-lg border-white/5 hover:border-primary/20 transition-all cursor-default">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-xs text-on-surface font-bold">4</div>
+<span class="text-label-mono font-label-mono text-on-surface">0x98...aa1</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">15m ago</span>
+</div>
+<!-- Player Row 5 -->
+<div class="flex items-center justify-between p-md glass-card rounded-lg border-white/5 hover:border-primary/20 transition-all cursor-default">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-xs text-on-surface font-bold">5</div>
+<span class="text-label-mono font-label-mono text-on-surface">0x55...b2c</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">18m ago</span>
+</div>
+<!-- Empty State logic could go here, currently populated -->
+<div class="hidden flex flex-col items-center justify-center py-xl opacity-50">
+<span class="material-symbols-outlined text-display-lg">group_off</span>
+<p class="text-body-md font-body-md mt-sm">No players yet — be the first!</p>
+</div>
+</div>
+<button class="mt-lg w-full py-md glass-card border-white/10 text-on-surface-variant text-label-sm font-label-sm hover:text-primary transition-colors">View All Participants</button>
+</div>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="glass-card p-lg rounded-xl border-white/5 flex flex-col">
+<span class="text-on-surface-variant text-label-sm font-label-sm mb-xs">Active Stakers</span>
+<span class="text-headline-md font-headline-md text-on-surface">1,204</span>
+<div class="mt-md h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl border-white/5 flex flex-col">
+<span class="text-on-surface-variant text-label-sm font-label-sm mb-xs">Yield Generated</span>
+<span class="text-headline-md font-headline-md text-tertiary">42.8 ETH</span>
+<div class="mt-md h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-1/2"></div>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl border-white/5 flex flex-col">
+<span class="text-on-surface-variant text-label-sm font-label-sm mb-xs">Total Raffles Run</span>
+<span class="text-headline-md font-headline-md text-on-surface">582</span>
+<div class="mt-md h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-secondary-container w-4/5"></div>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl border-white/5 flex flex-col">
+<span class="text-on-surface-variant text-label-sm font-label-sm mb-xs">Protocol Security</span>
+<span class="text-headline-md font-headline-md text-primary flex items-center gap-xs">99.9% <span class="material-symbols-outlined text-sm">verified_user</span></span>
+<div class="mt-md h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-dim border-t border-white/5 mt-xl">
+<div class="flex flex-col gap-sm">
+<span class="text-headline-sm font-headline-sm text-on-surface">Smart Lottery</span>
+<p class="text-body-md font-body-md text-outline">© 2024 Smart Lottery Protocol. Built for the decentralized future.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Twitter</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Discord</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Docs</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Etherscan</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Github</a>
+</div>
+</footer>
+<!-- Background Atmospheric Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+<div class="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-tertiary/10 blur-[120px] rounded-full"></div>
+</div>
+<script>
+        // Simple micro-interaction for button feedback
+        const enterButton = document.querySelector('button');
+        if (enterButton) {
+            enterButton.addEventListener('click', () => {
+                console.log('Interaction: Enter Raffle clicked');
+                // Simulate focus state
+                enterButton.classList.add('scale-95');
+                setTimeout(() => {
+                    enterButton.classList.remove('scale-95');
+                }, 150);
+            });
+        }
+
+        // Logic for Copy Icon
+        const copyBtn = document.querySelector('.material-symbols-outlined[title="Copy Address"]');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = 'check';
+                copyBtn.classList.add('text-tertiary');
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                    copyBtn.classList.remove('text-tertiary');
+                }, 2000);
+            });
+        }
+    </script>
+</body></html>

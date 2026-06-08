@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(29, 32, 35, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .winner-glow {
+            box-shadow: 0 0 40px rgba(208, 188, 255, 0.4);
+            border: 2px solid rgba(208, 188, 255, 0.6);
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #adc6ff;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(208, 188, 255, 0.8), 0 0 20px rgba(208, 188, 255, 0.4);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#37393d",
+                        "on-primary-container": "#00285d",
+                        "on-background": "#e1e2e7",
+                        "primary": "#adc6ff",
+                        "on-tertiary": "#003824",
+                        "on-secondary-container": "#c4abff",
+                        "surface-dim": "#111417",
+                        "on-secondary": "#3c0091",
+                        "surface-container-lowest": "#0b0e11",
+                        "outline-variant": "#424754",
+                        "tertiary-fixed": "#6ffbbe",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3134",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-low": "#191c1f",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline": "#8c909f",
+                        "on-primary-fixed": "#001a42",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-primary": "#002e6a",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#323538",
+                        "surface": "#111417",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-fixed": "#002113",
+                        "on-surface": "#e1e2e7",
+                        "secondary-container": "#571bc1",
+                        "secondary": "#d0bcff",
+                        "surface-container-high": "#272a2e",
+                        "primary-container": "#4d8eff",
+                        "tertiary": "#4edea3",
+                        "background": "#111417",
+                        "on-tertiary-container": "#00311f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-container": "#1d2023",
+                        "on-surface-variant": "#c2c6d6",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-variant": "#323538",
+                        "inverse-primary": "#005ac2",
+                        "tertiary-container": "#00a572",
+                        "on-secondary-fixed": "#23005c",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "inverse-surface": "#e1e2e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/30 min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-20 bg-background/80 backdrop-blur-2xl border-b border-white/10 shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+<div class="flex items-center gap-xl">
+<span class="text-headline-md font-headline-md font-black text-primary tracking-tighter">Smart Lottery</span>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200" href="#">Raffles</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200" href="#">Staking</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200" href="#">Stats</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200" href="#">FAQ</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex flex-col items-end">
+<span class="text-label-mono font-label-mono text-primary">0x12...3456</span>
+<span class="text-[10px] text-tertiary uppercase tracking-widest">Connected</span>
+</div>
+<button class="bg-primary text-on-primary-container px-md py-sm rounded-lg font-bold active:scale-95 duration-150 ease-in-out">
+                Connect Wallet
+            </button>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">account_balance_wallet</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">settings</span>
+</div>
+</div>
+</nav>
+<main class="relative flex-grow px-margin-mobile md:px-margin-desktop py-xl max-w-max-width mx-auto w-full" id="confetti-container">
+<!-- Main Dashboard Header -->
+<header class="mb-xl">
+<h1 class="font-headline-lg text-headline-lg mb-xs">Grand Raffle #042</h1>
+<p class="text-on-surface-variant font-body-md">The results are in. Verifiable randomness has selected our latest winner.</p>
+</header>
+<!-- Main Raffle Card: Winner Picked State -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Highlighted Winner Card -->
+<div class="glass-card winner-glow rounded-xl p-xl relative overflow-hidden group">
+<!-- Subtle Background Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-secondary/20 blur-[100px] rounded-full group-hover:bg-secondary/30 transition-all"></div>
+<div class="relative z-10">
+<div class="flex flex-wrap justify-between items-start gap-md mb-lg">
+<div>
+<span class="bg-secondary-container text-on-secondary-container text-label-sm font-label-sm px-md py-xs rounded-full inline-block mb-sm">
+                                    WinnerPicked event received
+                                </span>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white">Raffle Closed</h2>
+</div>
+<div class="text-right">
+<span class="text-label-mono font-label-mono text-outline block">Selected at 14:22 UTC</span>
+<span class="text-label-mono font-label-mono text-tertiary">Verified on Etherscan</span>
+</div>
+</div>
+<div class="py-xl border-y border-white/5 flex flex-col items-center justify-center text-center">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-[0.2em] mb-md">The Winner Is</span>
+<div class="flex flex-col items-center gap-md">
+<div class="w-20 h-20 rounded-full bg-gradient-to-tr from-secondary to-primary flex items-center justify-center mb-sm shadow-lg">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-display-lg text-secondary neon-text-purple tracking-tight break-all px-md">
+                                    🎉 Winner: 0x9f...8a2b
+                                </span>
+</div>
+</div>
+<div class="mt-lg grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-card bg-surface-container-low p-md rounded-lg">
+<p class="text-label-sm font-label-sm text-outline mb-xs">Prize Pool</p>
+<p class="font-label-mono text-headline-md text-primary">42.50 ETH</p>
+</div>
+<div class="glass-card bg-surface-container-low p-md rounded-lg">
+<p class="text-label-sm font-label-sm text-outline mb-xs">Total Tickets</p>
+<p class="font-label-mono text-headline-md text-on-surface">1,248</p>
+</div>
+<div class="glass-card bg-surface-container-low p-md rounded-lg">
+<p class="text-label-sm font-label-sm text-outline mb-xs">Random Seed</p>
+<p class="font-label-mono text-body-md text-on-surface-variant truncate">0xbfd...e81a</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Players List Section -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="p-lg border-b border-white/5 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">Participants</h3>
+<span class="text-label-mono font-label-mono text-on-surface-variant">1,248 Players</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-highest/30">
+<tr>
+<th class="px-lg py-md text-label-sm font-label-sm text-outline uppercase tracking-wider">Address</th>
+<th class="px-lg py-md text-label-sm font-label-sm text-outline uppercase tracking-wider">Tickets</th>
+<th class="px-lg py-md text-label-sm font-label-sm text-outline uppercase tracking-wider">Status</th>
+<th class="px-lg py-md text-label-sm font-label-sm text-outline uppercase tracking-wider text-right">Probability</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="bg-secondary/5">
+<td class="px-lg py-md font-label-mono text-secondary">0x9f...8a2b</td>
+<td class="px-lg py-md text-on-surface">50</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-secondary text-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                                            Winner
+                                        </span>
+</td>
+<td class="px-lg py-md text-right font-label-mono text-on-surface-variant">4.01%</td>
+</tr>
+<tr>
+<td class="px-lg py-md font-label-mono text-on-surface">0x7a...c4e1</td>
+<td class="px-lg py-md text-on-surface">120</td>
+<td class="px-lg py-md text-label-sm text-outline">Participant</td>
+<td class="px-lg py-md text-right font-label-mono text-on-surface-variant">9.61%</td>
+</tr>
+<tr>
+<td class="px-lg py-md font-label-mono text-on-surface">0x2d...f902</td>
+<td class="px-lg py-md text-on-surface">10</td>
+<td class="px-lg py-md text-label-sm text-outline">Participant</td>
+<td class="px-lg py-md text-right font-label-mono text-on-surface-variant">0.80%</td>
+</tr>
+<tr>
+<td class="px-lg py-md font-label-mono text-on-surface">0xe4...bb11</td>
+<td class="px-lg py-md text-on-surface">85</td>
+<td class="px-lg py-md text-label-sm text-outline">Participant</td>
+<td class="px-lg py-md text-right font-label-mono text-on-surface-variant">6.81%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md text-center border-t border-white/5">
+<button class="text-primary font-medium hover:underline text-body-md transition-all">View All Participants</button>
+</div>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-gutter">
+<!-- Raffle Details -->
+<div class="glass-card rounded-xl p-lg space-y-md">
+<h4 class="font-headline-md text-headline-md">Raffle Metadata</h4>
+<div class="space-y-sm">
+<div class="flex justify-between text-body-md">
+<span class="text-outline">Round Number</span>
+<span class="text-on-surface font-label-mono">#042</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-outline">Smart Contract</span>
+<span class="text-primary font-label-mono cursor-pointer">0x781...f22b</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-outline">VRF Request ID</span>
+<span class="text-on-surface font-label-mono truncate ml-md">0x992...a341</span>
+</div>
+</div>
+<div class="pt-md">
+<img class="w-full h-32 object-cover rounded-lg opacity-60" data-alt="A futuristic schematic diagram of a blockchain protocol flow, using neon blue and deep violet lines to represent secure data transmission. The visual style is technical and highly detailed, featuring holographic elements and architectural nodes that imply high security and decentralized trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGHq6gJutOBlldr--xS_lLRMgS_hISqg__1lT9_P_pKFVdDNaAZ5xVMlArqqRYMrnAX_2NC0iQIlEuaoWfnNsmBKxm2isgBlAGjUIId4la-2dRWv3c1UtcFmspEmiSxHGgM880IbmUq1cCPV4bGEingLRtHMfLOBIC2pNOa5aM8SvCk82bAkmEOBqpP0Wh-z_Rbd_AHiV7qa7jfJ2wxJ7pGglGMa2z3kSUj8xwed0F_X82uyPMfoT-w6XWgBj_r1diyVXmgIw2U-6K"/>
+</div>
+</div>
+<!-- Next Raffle Teaser -->
+<div class="glass-card rounded-xl p-lg bg-gradient-to-br from-surface-container to-surface-container-highest border-primary/20">
+<div class="flex items-center gap-md mb-md">
+<div class="bg-primary/20 p-sm rounded-lg">
+<span class="material-symbols-outlined text-primary">upcoming</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary">Next Raffle</h4>
+</div>
+<p class="text-body-md text-on-surface-variant mb-lg">Round #043 starts in 12 hours. Stake your tokens now for priority access.</p>
+<button class="w-full bg-primary text-on-primary-container font-bold py-md rounded-lg shadow-lg hover:shadow-primary/20 transition-all">
+                        Buy Tickets for Next Round
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-dim border-t border-white/5">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<span class="text-headline-sm font-headline-sm text-on-surface">Smart Lottery</span>
+<p class="text-label-sm font-label-sm text-outline">© 2024 Smart Lottery Protocol. Built for the decentralized future.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-outline font-medium hover:text-tertiary-fixed transition-colors opacity-80 hover:opacity-100" href="#">Twitter</a>
+<a class="text-outline font-medium hover:text-tertiary-fixed transition-colors opacity-80 hover:opacity-100" href="#">Discord</a>
+<a class="text-outline font-medium hover:text-tertiary-fixed transition-colors opacity-80 hover:opacity-100" href="#">Docs</a>
+<a class="text-outline font-medium hover:text-tertiary-fixed transition-colors opacity-80 hover:opacity-100" href="#">Etherscan</a>
+<a class="text-outline font-medium hover:text-tertiary-fixed transition-colors opacity-80 hover:opacity-100" href="#">Github</a>
+</div>
+</footer>
+<script>
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#adc6ff', '#d0bcff', '#4edea3', '#ffffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                const size = Math.random() * 6 + 4;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random starting position
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                
+                // Random animation properties
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 5;
+                confetti.style.animation = `confetti-fall ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(confetti);
+                
+                // Remove after some time to prevent DOM bloat
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+
+        // Initialize confetti interaction
+        window.addEventListener('load', () => {
+            createConfetti();
+            // Periodically add more confetti
+            setInterval(createConfetti, 10000);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Lottery | Decentralized Raffle</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #111417;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(77, 142, 255, 0.15) 0%, rgba(173, 198, 255, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#37393d",
+                        "on-primary-container": "#00285d",
+                        "on-background": "#e1e2e7",
+                        "primary": "#adc6ff",
+                        "on-tertiary": "#003824",
+                        "on-secondary-container": "#c4abff",
+                        "surface-dim": "#111417",
+                        "on-secondary": "#3c0091",
+                        "surface-container-lowest": "#0b0e11",
+                        "outline-variant": "#424754",
+                        "tertiary-fixed": "#6ffbbe",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3134",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-low": "#191c1f",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "outline": "#8c909f",
+                        "on-primary-fixed": "#001a42",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-primary": "#002e6a",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#323538",
+                        "surface": "#111417",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-fixed": "#002113",
+                        "on-surface": "#e1e2e7",
+                        "secondary-container": "#571bc1",
+                        "secondary": "#d0bcff",
+                        "surface-container-high": "#272a2e",
+                        "primary-container": "#4d8eff",
+                        "tertiary": "#4edea3",
+                        "background": "#111417",
+                        "on-tertiary-container": "#00311f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-container": "#1d2023",
+                        "on-surface-variant": "#c2c6d6",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-variant": "#323538",
+                        "inverse-primary": "#005ac2",
+                        "tertiary-container": "#00a572",
+                        "on-secondary-fixed": "#23005c",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "inverse-surface": "#e1e2e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-background font-body-md selection:bg-primary selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-20 bg-background/80 backdrop-blur-2xl border-b border-white/10">
+<div class="flex items-center gap-xl">
+<span class="text-headline-md font-headline-md font-black text-primary tracking-tighter">Smart Lottery</span>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Raffles</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">Staking</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">Stats</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 font-body-md text-body-md" href="#">FAQ</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-sm">
+<button class="material-symbols-outlined p-xs text-on-surface-variant hover:text-primary transition-colors">settings</button>
+</div>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(77,142,255,0.3)]">
+                Connect Wallet
+            </button>
+</div>
+</header>
+<main class="relative overflow-hidden">
+<!-- Background Elements -->
+<div class="hero-glow top-0 -left-48"></div>
+<div class="hero-glow bottom-0 -right-48" style="background: radial-gradient(circle, rgba(208, 188, 255, 0.1) 0%, rgba(208, 188, 255, 0) 70%);"></div>
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center px-margin-desktop py-xl">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center w-full max-w-max-width mx-auto">
+<div class="z-10">
+<div class="inline-flex items-center gap-xs px-md py-xs rounded-full bg-primary-container/10 border border-primary/20 mb-lg">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="text-label-mono font-label-mono text-primary uppercase">Fully On-Chain Protocol</span>
+</div>
+<h1 class="text-display-lg font-display-lg text-on-surface mb-md leading-tight">
+                        Smart <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary">Lottery</span>
+</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-lg mb-xl">
+                        Decentralized raffle powered by smart contracts and verifiable randomness. Experience a fair, transparent, and immutable gaming ecosystem built on Ethereum.
+                    </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container px-xl py-lg rounded-xl font-bold flex items-center gap-sm group hover:shadow-[0_0_30px_rgba(77,142,255,0.4)] transition-all active:scale-95">
+                            Connect Wallet
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="border border-outline/30 text-outline px-xl py-lg rounded-xl font-bold cursor-not-allowed opacity-50 bg-white/5 backdrop-blur-sm">
+                            Enter Raffle
+                        </button>
+</div>
+<!-- Stats Badges -->
+<div class="grid grid-cols-3 gap-md mt-24">
+<div class="glass-card p-md rounded-xl">
+<span class="text-label-mono font-label-mono text-outline block mb-xs">TOTAL POOL</span>
+<span class="text-headline-md font-headline-md text-primary">$1.2M+</span>
+</div>
+<div class="glass-card p-md rounded-xl">
+<span class="text-label-mono font-label-mono text-outline block mb-xs">ACTIVE USERS</span>
+<span class="text-headline-md font-headline-md text-secondary">45.2k</span>
+</div>
+<div class="glass-card p-md rounded-xl">
+<span class="text-label-mono font-label-mono text-outline block mb-xs">WINNERS</span>
+<span class="text-headline-md font-headline-md text-tertiary">8.9k</span>
+</div>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<!-- Abstract 3D Hero Visual -->
+<div class="relative w-full aspect-square flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl opacity-20"></div>
+<div class="floating glass-card w-4/5 h-3/5 rounded-3xl relative p-1">
+<div class="w-full h-full rounded-[20px] overflow-hidden relative">
+<img alt="Abstract Blockchain Visual" class="w-full h-full object-cover opacity-80 mix-blend-screen" data-alt="A futuristic, high-fidelity 3D rendering of an abstract blockchain network with glowing neon nodes and crystalline particles floating in a deep navy blue void. The lighting is dominated by electric blue and soft violet highlights, creating a sense of cutting-edge technology and secure decentralization. Shimmering data streams connect various geometric structures, emphasizing a high-tech corporate modern aesthetic with significant depth and atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQsbneQpzAkS0HsEl6UXlZroOXsFVGq_gaxsBLJ_z3yibPHKmQFJ6unZMdLcQNmv3zmthL0VGbtykZauTccFUVbASAo0Cnmz9P-jR6L9R9zGea28SqrRqUfPFRQnO30DkaNkvQshjd-rRaYXkrPXVLP63JdzdhoO1-Nvtoez_nDGAhstiGgHvZm2gfqSu88FyePhnWV-jhTqBv43GORwiD0c2OhvAV0G-4FaBTPAEZl7qBttsM-miVoYspQmAg1--2kcF_Bn70-Iq5"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md right-md">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-label-mono font-label-mono text-primary">CURRENT JACKPOT</p>
+<h3 class="text-headline-md font-headline-md">45.82 ETH</h3>
+</div>
+<div class="h-12 w-12 rounded-full border-2 border-primary/20 flex items-center justify-center bg-background/50 backdrop-blur-md">
+<span class="material-symbols-outlined text-primary">token</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary floating elements -->
+<div class="absolute top-10 right-10 floating glass-card p-md rounded-2xl shadow-xl z-20" style="animation-delay: -1s;">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="text-label-sm font-label-sm">Live Randomness Draw</span>
+</div>
+</div>
+<div class="absolute bottom-10 left-0 floating glass-card p-md rounded-2xl shadow-xl z-20" style="animation-delay: -3s;">
+<div class="flex flex-col gap-xs">
+<span class="text-label-mono font-label-mono text-outline text-[10px]">VERIFIED BY</span>
+<span class="font-bold text-on-surface">Chainlink VRF</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Features Section -->
+<section class="px-margin-desktop py-xl max-w-max-width mx-auto">
+<h2 class="text-headline-lg font-headline-lg text-center mb-xl">The Future of Fairness</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="glass-card p-xl rounded-3xl md:col-span-2 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-display-lg mb-md">security</span>
+<h3 class="text-headline-md font-headline-md mb-sm">Secure Staking Mechanics</h3>
+<p class="text-on-surface-variant max-w-md">Lock your tickets in the staking pool to earn protocol fees and boost your winning probabilities through long-term loyalty rewards.</p>
+</div>
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity">
+<img alt="Staking UI Preview" class="w-full h-full object-cover object-left" data-alt="A sleek and professional digital user interface showing a cryptocurrency staking dashboard. The layout features elegant glassmorphism cards with translucent backgrounds and subtle white borders. Data is represented through smooth neon blue line charts and minimal typography. The overall color palette is a deep charcoal and navy, with electric blue highlights signaling growth and security in a futuristic Web3 environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWy6_aIa4S2ABMepSpTtIYVMo-GfwGPChu7shU7ml6vIyl4LP_SEYUnHA9ZBHdp6kEHPpYxiY9qVn4VSEYUUSaAHr6-DrYMBK5PDxj0CHberBY5TP54VEISe8PRohSTkca-v1rWbkev2ngpPZrlnjsttA1PpsrlftPEBJS7w7BPRoXAJk0xE_iNhrXqbwrkdF3z0EiA_P783AX-Rg_UIJLhKzP7kCivWcJWGpUsWBNLCKesak6ZG7MgO6lKKx9fYE2PyZbVOY089uY"/>
+</div>
+</div>
+<div class="glass-card p-xl rounded-3xl group hover:border-tertiary/30 transition-colors">
+<span class="material-symbols-outlined text-tertiary text-display-lg mb-md">casino</span>
+<h3 class="text-headline-md font-headline-md mb-sm">Verifiable Luck</h3>
+<p class="text-on-surface-variant">Every winner is selected using Chainlink VRF, ensuring 100% tamper-proof randomness that anyone can verify on-chain.</p>
+</div>
+<div class="glass-card p-xl rounded-3xl flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-secondary text-display-lg mb-md">account_balance_wallet</span>
+<h3 class="text-headline-md font-headline-md mb-sm">Instant Payouts</h3>
+<p class="text-on-surface-variant">No manual withdrawals. Smart contracts automatically distribute prizes directly to winner's wallets immediately after each draw.</p>
+</div>
+<div class="mt-xl h-24 bg-surface-container rounded-xl flex items-center justify-center overflow-hidden">
+<div class="flex -space-x-4">
+<div class="w-12 h-12 rounded-full border-2 border-surface bg-surface-bright flex items-center justify-center"><span class="material-symbols-outlined text-primary text-sm">bolt</span></div>
+<div class="w-12 h-12 rounded-full border-2 border-surface bg-surface-bright flex items-center justify-center"><span class="material-symbols-outlined text-secondary text-sm">lock</span></div>
+<div class="w-12 h-12 rounded-full border-2 border-surface bg-surface-bright flex items-center justify-center"><span class="material-symbols-outlined text-tertiary text-sm">check</span></div>
+</div>
+</div>
+</div>
+<div class="glass-card p-xl rounded-3xl md:col-span-2 relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="text-headline-md font-headline-md mb-sm">Community Governance</h3>
+<p class="text-on-surface-variant max-w-lg">Protocol changes and treasury management are decided by $LOTT token holders through a transparent DAO structure. Your vote shapes the future of the lottery.</p>
+<button class="mt-lg text-primary font-bold flex items-center gap-xs">Learn about DAO <span class="material-symbols-outlined">north_east</span></button>
+</div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-dim border-t border-white/5">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<span class="text-headline-sm font-headline-sm text-on-surface">Smart Lottery</span>
+<p class="text-label-sm font-label-sm text-outline">© 2024 Smart Lottery Protocol. Built for the decentralized future.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-lg">
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Twitter</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Discord</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Docs</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Etherscan</a>
+<a class="text-outline hover:text-tertiary-fixed transition-colors text-label-sm font-label-sm opacity-80 hover:opacity-100" href="#">Github</a>
+</nav>
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></span>
+<span class="text-label-sm font-label-sm text-tertiary">Protocol Operational</span>
+</div>
+</footer>
+<script>
+        // Micro-interactions for glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Simple parallax on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroVisual = document.querySelector('.floating');
+            if(heroVisual) {
+                heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body></html>
